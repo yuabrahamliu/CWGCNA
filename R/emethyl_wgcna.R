@@ -1991,7 +1991,7 @@ orgwgcnagores <- function(gores){
   
 }
 
-#'Perform WGCNA analysis
+#'Perform causal WGCNA analysis
 #'
 #'Perform WGCNA analysis followed by network-based functional enrichment and 
 #'  causal inference (based on mediation analysis) for WGCNA modules.
@@ -2038,7 +2038,7 @@ orgwgcnagores <- function(gores){
 #'  find the module features mediating the causal relationships between the 
 #'  module and the response variable, it can also be performed on the base 
 #'  learner datasets with an ensemble mode, or directly on the whole data with 
-#'  a normal mode, depending on this parameter. Default is FALSE. 
+#'  a normal mode, depending on this parameter. Default is TRUE. 
 #'@param samplingmethod When \code{balanceadj} is TRUE, this parameter will 
 #'  be needed to determine how to sample the data to get the base learner sets 
 #'  for the ensemeble mode. If it is set as "updn", to make the sample groups 
@@ -2260,7 +2260,7 @@ diffwgcna <- function(dat,
                       topvaricancetype = 'sd', 
                       topvaricance = 5000, 
                       
-                      balanceadj = FALSE, 
+                      balanceadj = TRUE, 
                       samplingmethod = 'updn', 
                       nround = 10,
                       seed = 2022, 
