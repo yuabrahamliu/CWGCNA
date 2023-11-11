@@ -177,7 +177,7 @@ cwgcnares <- diffwgcna(dat = betasgene,
                        
                        plot = TRUE, 
                        titleprefix = "Placenta", 
-					   labelnum = 5, 
+                       labelnum = 5, 
                        titlesize = 17, 
                        textsize = 16, 
                        annotextsize = 5, 
