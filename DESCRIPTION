@@ -1,0 +1,73 @@
+Package: CWGCNA
+Title: CWGCNA is an R package to perform causal inference from the WGCNA framework.
+Version: 1.0.0
+Authors@R: 
+    person(given = "Yu",
+           family = "Liu",
+           role = c("aut", "cre"),
+           email = "yuabrahamliu@gmail.com",
+           comment = c(ORCID = "0000-0002-8631-4347"))
+Description: WGCNA (weighted gene co-expression network analysis) is a very 
+    useful tool for identifying co-expressed gene modules and detecting their 
+	correlations to phenotypic traits. Here, we explored more possibilities 
+	about it and developed the R package CWGCNA (causal WGCNA), which works 
+	from the traditional WGCNA pipeline but mines more information. It couples 
+	a mediation model with WGCNA, so the causal relationships among the WGCNA 
+	modules, module features, and phenotypes can be identified, demonstrating 
+	whether the module change causes the phenotype change or vice versa. After 
+	that, when annotating the module gene set functions, CWGCNA uses a novel 
+	network-based method, considering the modules’ topological structures and 
+	capturing their influence on the gene set functions. In addition to these 
+	biological explorations, CWGCNA also contains a machine learning section 
+	to perform clustering and classification on multi-omics data, given the 
+	increasing popularity of this kind of data. Some basic functions, such as 
+	differential feature identification, are also available in our package. 
+License: `use_mit_license()`
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    AnnotationDbi (>= 1.60.2),
+    car (>= 3.1.2),
+    clusterCrit (>= 1.2.8),
+    dbscan (>= 1.1.11),
+    doParallel (>= 1.0.17),
+    enrichR (>= 3.2),
+    fastcluster (>= 1.2.3),
+    foreach (>= 1.5.2),
+    ggplot2 (>= 3.4.2),
+    ggrepel (>= 0.9.4),
+    glmnet (>= 4.1.7),
+    GO.db (>= 3.16.0),
+    igraph (>= 1.5.1),
+    IlluminaHumanMethylation450kanno.ilmn12.hg19 (>= 0.6.1),
+    IlluminaHumanMethylationEPICanno.ilm10b4.hg19 (>= 0.6.0),
+    impute (>= 1.72.3),
+    irlba (>= 2.3.5.1),
+    limma (>= 3.54.2),
+    magrittr (>= 2.0.3),
+    Matrix (>= 1.6.1.1),
+    mice (>= 3.16.0),
+    org.Hs.eg.db (>= 3.16.0),
+    parallel (>= 4.2.3),
+    pheatmap (>= 1.0.12),
+    plyr (>= 1.8.8),
+    reactome.db (>= 1.82.0),
+    reshape (>= 0.8.9),
+    Rtsne (>= 0.16),
+    scales (>= 1.2.1),
+    umap (>= 0.2.10.0),
+    WeightIt (>= 0.14.2),
+    WGCNA (>= 1.72.1)
+Suggests: 
+    bumphunter (>= 1.40.0),
+    GenomicFeatures (>= 1.50.4),
+    GenomicRanges (>= 1.50.2),
+    harmonicmeanp (>= 3.0),
+    IlluminaHumanMethylation27kanno.ilmn12.hg19 (>= 0.6.0),
+    IRanges (>= 2.32.0),
+    metap (>= 1.9),
+    TxDb.Hsapiens.UCSC.hg19.knownGene (>= 3.2.2)
+Depends: 
+    R (>= 4.2.3)
+LazyData: true
