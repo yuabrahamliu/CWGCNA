@@ -1,6 +1,6 @@
 # Tutorial for R package CWGCNA
 
-## Yu Liu
+## 
 ## 11/10/2023
 
 ## Introduction
