@@ -2,11 +2,11 @@ Package: CWGCNA
 Title: CWGCNA is an R package to perform causal inference from the WGCNA framework.
 Version: 1.0.0
 Authors@R: 
-    person(given = "Yu",
-           family = "Liu",
+    person(given = "",
+           family = "",
            role = c("aut", "cre"),
-           email = "yuabrahamliu@gmail.com",
-           comment = c(ORCID = "0000-0002-8631-4347"))
+           email = "",
+           comment = c(ORCID = ""))
 Description: WGCNA (weighted gene co-expression network analysis) is a very 
     useful tool for identifying co-expressed gene modules and detecting their 
 	correlations to phenotypic traits. Here, we explored more possibilities 
