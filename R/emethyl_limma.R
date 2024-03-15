@@ -538,6 +538,24 @@ anovaplot <- function(restab,
 #'  selection), MAD (if using MAD), or their ANOVA F statistic, MSS, and p-val 
 #'  (if using ANOVA feature selection). If \code{plotannovares} were TRUE, the 
 #'  ANOVA result for the dataset will also be plotted.
+#'@examples
+#'library(CWGCNA)
+#'
+#'betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+#'betas <- readRDS(betas)
+#'
+#'pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
+#'pds <- readRDS(pds)
+#'
+#'top10k <- featuresampling(betas = betas, topfeatures = 10000, 
+#'  variancetype = "sd", threads = 6)
+#'  
+#'anovares <- featuresampling(betas = top10k$betas, pddat = pds, anova = TRUE, 
+#'  
+#'  plotannovares = TRUE, featuretype = "probe", plottitlesuffix = "placenta", 
+#'  titlesize = 18, textsize = 16, 
+#'  
+#'  threads = 6)
 #'@export
 featuresampling <- function(betas, 
                             topfeatures = 10000, 
@@ -1366,6 +1384,14 @@ summaryfeature <- function(dat, featurecolidx){
 #'  check if the data values are between 0 and 1 first, and if not, it will 
 #'  drop the downstream computation and return NULL. Default is TRUE.
 #'@return A matrix recording the summarized gene beta values for samples.
+#'@examples
+#'library(CWGCNA)
+#'
+#'betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+#'betas <- readRDS(betas)
+#'
+#'betasgene <- probestogenes(betadat = betas, 
+#'  group450k850k = c("TSS200", "TSS1500", "1stExon"))
 #'@export
 probestogenes <- function(betadat, 
                           platform = 450, 
