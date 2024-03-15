@@ -172,3 +172,48 @@ Train single-omic or multi-omics classifiers via several steps, including
 a data distribution adjustment step (optional), a elastic net feature
 selection step, and an SVM or MLR model training step.
 }
+\examples{
+library(CWGCNA)
+
+betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+betas <- readRDS(betas)
+
+pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
+pds <- readRDS(pds)
+
+#Extract the DNAm probe data for the 101 preeclampsia samples
+prepds <- subset(pds, Group == "Preeclampsia")
+row.names(prepds) <- 1:nrow(prepds)
+
+prebetas <- betas[, prepds$sampleid, drop = FALSE]
+
+#Clustering
+presubtyperes <- multiCCA(dats = list(prebetas), 
+                         
+ k = 2, consensus = 1, 
+                         
+ seednum = 2022, threads = 6, plot = TRUE, titlefix = "Preeclampsia", 
+ titlesize = 18, textsize = 16)
+
+#Make the sample labels from the clustering result
+subtypes <- paste0("Subtype", presubtyperes$kreses$`k = 2`)
+
+#Classification
+\dontrun{
+presubtypeclassifierres <- omicsclassifier(dats = list(prebetas), 
+ truelabels = subtypes, 
+                                          
+ balanceadj = 1, 
+                                          
+ method = "SVM", 
+                                          
+ alphas = c(0.5), nfold = 5, 
+                                          
+ seednum = 2022, threads = 6, 
+                                          
+ plot = TRUE, prefixes = c("Preeclampsia (SVM-balance)"))
+}
+
+
+
+}

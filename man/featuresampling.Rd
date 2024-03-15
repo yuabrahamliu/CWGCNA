@@ -90,3 +90,22 @@ ANOVA result for the dataset will also be plotted.
 \description{
 Select features with the largest SD, largest MAD, or smallest ANOVA p-val.
 }
+\examples{
+library(CWGCNA)
+
+betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+betas <- readRDS(betas)
+
+pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
+pds <- readRDS(pds)
+
+top10k <- featuresampling(betas = betas, topfeatures = 10000, 
+ variancetype = "sd", threads = 6)
+ 
+anovares <- featuresampling(betas = top10k$betas, pddat = pds, anova = TRUE, 
+ 
+ plotannovares = TRUE, featuretype = "probe", plottitlesuffix = "placenta", 
+ titlesize = 18, textsize = 16, 
+ 
+ threads = 6)
+}

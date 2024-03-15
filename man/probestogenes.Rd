@@ -59,3 +59,12 @@ A matrix recording the summarized gene beta values for samples.
 Summarize the methylation beta values of probes to genes by averaging the
 probes located closely to the TSS of a gene.
 }
+\examples{
+library(CWGCNA)
+
+betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+betas <- readRDS(betas)
+
+betasgene <- probestogenes(betadat = betas, 
+ group450k850k = c("TSS200", "TSS1500", "1stExon"))
+}

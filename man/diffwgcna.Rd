@@ -2,7 +2,7 @@
 % Please edit documentation in R/emethyl_wgcna.R
 \name{diffwgcna}
 \alias{diffwgcna}
-\title{Perform WGCNA analysis}
+\title{Perform causal WGCNA analysis}
 \usage{
 diffwgcna(
   dat,
@@ -12,7 +12,7 @@ diffwgcna(
   confoundings = NULL,
   topvaricancetype = "sd",
   topvaricance = 5000,
-  balanceadj = FALSE,
+  balanceadj = TRUE,
   samplingmethod = "updn",
   nround = 10,
   seed = 2022,
@@ -95,7 +95,7 @@ FALSE, normal limma will be used. Similarly, for the mediation analysis to
 find the module features mediating the causal relationships between the
 module and the response variable, it can also be performed on the base
 learner datasets with an ensemble mode, or directly on the whole data with
-a normal mode, depending on this parameter. Default is FALSE.}
+a normal mode, depending on this parameter. Default is TRUE.}
 
 \item{samplingmethod}{When \code{balanceadj} is TRUE, this parameter will
 be needed to determine how to sample the data to get the base learner sets
@@ -350,4 +350,38 @@ the information of these probes.
 \description{
 Perform WGCNA analysis followed by network-based functional enrichment and
 causal inference (based on mediation analysis) for WGCNA modules.
+}
+\examples{
+library(CWGCNA)
+
+betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+betas <- readRDS(betas)
+
+pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
+pds <- readRDS(pds)
+
+betasgene <- probestogenes(betadat = betas, 
+ group450k850k = c("TSS200", "TSS1500", "1stExon"))
+
+\dontrun{
+cwgcnares <- diffwgcna(dat = betasgene, pddat = pds, 
+ responsevarname = "Group", confoundings = c("Gestwk", "Babygender"), 
+ featuretype = "gene", 
+ 
+ topvaricancetype = "sd", topvaricance = 5000, 
+ 
+ powers = seq(1, 20, 1), rsqcutline = 0.8, 
+ 
+ mediation = TRUE, 
+ 
+ topn = 1, 
+ 
+ plot = TRUE, titleprefix = "Placenta", labelnum = 5, titlesize = 17, 
+ textsize = 16, annotextsize = 5, 
+ 
+ pvalcolname = "adj.P.Val", pvalcutoff = 0.05, isbetaval = TRUE, 
+ absxcutoff = 0, diffcutoff = 0, 
+ 
+ threads = 6)
+}
 }

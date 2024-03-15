@@ -128,3 +128,29 @@ for the samples.
 Cluster single-omic data with PCA + k-means or cluster multi-omics data with
 CCA + k-means.
 }
+\examples{
+library(CWGCNA)
+
+betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
+betas <- readRDS(betas)
+
+pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
+pds <- readRDS(pds)
+
+#Extract the DNAm probe data for the 101 preeclampsia samples
+prepds <- subset(pds, Group == "Preeclampsia")
+row.names(prepds) <- 1:nrow(prepds)
+
+prebetas <- betas[, prepds$sampleid, drop = FALSE]
+
+#Clustering
+presubtyperes <- multiCCA(dats = list(prebetas), 
+                         
+ k = 2, consensus = 1, 
+                         
+ seednum = 2022, threads = 6, plot = TRUE, titlefix = "Preeclampsia", 
+ titlesize = 18, textsize = 16)
+
+
+
+}
