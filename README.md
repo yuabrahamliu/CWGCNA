@@ -84,7 +84,7 @@ We only perform the analysis on the top 10000 most variable DNAm probes in the d
 top10k <- featuresampling(betas = betas, 
                           topfeatures = 10000, 
                           variancetype = "sd", 
-                          threads = 4)
+                          threads = 6)
 
 top10k$betas[1:6,1:6]
 #>            GSM788417 GSM788419 GSM788420 GSM788421 GSM788414 GSM788415
@@ -123,7 +123,7 @@ anovares <- featuresampling(betas = top10k$betas,
                             titlesize = 18, 
                             textsize = 16, 
                             
-                            threads = 4)
+                            threads = 6)
 ```
 
 ![](https://github.com/yuabrahamliu/CWGCNA/blob/main/vignettes/Figure/tutorialfig1.png)
@@ -188,7 +188,7 @@ cwgcnares <- diffwgcna(dat = betasgene,
                        absxcutoff = 0, 
                        diffcutoff = 0, 
                        
-                       threads = 4)
+                       threads = 6)
 ```
 
 ![](https://github.com/yuabrahamliu/CWGCNA/blob/main/vignettes/Figure/tutorialfig2.png)
@@ -226,7 +226,7 @@ presubtyperes <- multiCCA(dats = list(prebetas),
                           consensus = 1, 
                           
                           seednum = 2022, 
-                          threads = 4, 
+                          threads = 6, 
                           plot = TRUE, 
                           titlefix = "Preeclampsia", 
                           titlesize = 18, 
@@ -287,7 +287,7 @@ presubtypeclassifierres <- omicsclassifier(dats = list(prebetas),
                                            nfold = 5, 
                                            
                                            seednum = 2022, 
-                                           threads = 4, 
+                                           threads = 6, 
                                            
                                            plot = TRUE, 
                                            prefixes = c("Preeclampsia (SVM-balance)"))
@@ -317,11 +317,11 @@ head(presubtypeclassifierres$cvtestcomps)
 
 #Number of correct classifications
 sum(as.character(presubtypeclassifierres$cvtestcomps$Prediction) == as.character(presubtypeclassifierres$cvtestcomps$True))
-#> [1] 94
+#> [1] 100
 
 #Accuracy
 sum(as.character(presubtypeclassifierres$cvtestcomps$Prediction) == as.character(presubtypeclassifierres$cvtestcomps$True))/nrow(presubtypeclassifierres$cvtestcomps)
-#> [1] 0.9306931
+#> [1] 0.990099
 
 #Confusion matrix
 table(presubtypeclassifierres$cvtestcomps)
