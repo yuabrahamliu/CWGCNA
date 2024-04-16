@@ -1,0 +1,10 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: Liu
+  given-names: Yu
+orcid: https://orcid.org/0000-0002-8631-4347
+title:yuabrahamliu/CWGCNA: v1.0.0
+version: v1.0.0
+date-released: 2024-04-16
+                                
