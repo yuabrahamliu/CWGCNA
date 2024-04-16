@@ -1,5 +1,7 @@
 # Tutorial for R package CWGCNA
 
+[![DOI](https://zenodo.org/badge/717369135.svg)](https://zenodo.org/doi/10.5281/zenodo.10982850)
+
 ## Yu Liu
 ## 11/10/2023
 
