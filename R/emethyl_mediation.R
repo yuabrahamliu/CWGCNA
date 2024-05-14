@@ -972,7 +972,8 @@ mediationmod <- function(mediatordat,
       }
       
       confs <- cbind(discreteconfs, continueconfs)
-      confs <- confs[,names(beta2)]
+      
+      confs <- confs[,names(beta2), drop = FALSE]
       
       c.all <- confs
       
@@ -1066,6 +1067,13 @@ mediationmod <- function(mediatordat,
         a0.boot <- a.boot <- med.boot <- cde.boot <- nie.boot <- rep(0, nboot)
       if(!is.null(confs)){
         beta2.boot <- mat.or.vec(nboot, ncol(confs))
+
+        if(is.null(dim(beta2.boot))){
+          
+          beta2.boot <- matrix(beta2.boot, ncol = 1)
+          
+        }
+        
       }else{
         beta2.boot <- NULL
       }
