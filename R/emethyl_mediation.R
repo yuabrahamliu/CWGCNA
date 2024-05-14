@@ -27,7 +27,8 @@ singlemediation <- function(j,
                             responselevels, 
                             mod11form, 
                             mod1form, 
-                            mod2form){
+                            mod2form, 
+                            bootnum = 100){
   
   mediator <- colnames(mediatordat)[j]
   mediatorval <- mediatordat[, j, drop = FALSE]
@@ -764,7 +765,8 @@ mediationmod <- function(mediatordat,
                                    responselevels = responselevels, 
                                    mod11form = mod11form, 
                                    mod1form = mod1form, 
-                                   mod2form = mod2form)
+                                   mod2form = mod2form, 
+                                   bootnum = bootnum)
       
       reslist[[j]] <- singleres
       
@@ -800,7 +802,8 @@ mediationmod <- function(mediatordat,
                                 responselevels, 
                                 mod11form, 
                                 mod1form, 
-                                mod2form){
+                                mod2form, 
+                                bootnum = 100){
       
       mediator <- colnames(mediatordat)[j]
       mediatorval <- mediatordat[, j, drop = FALSE]
@@ -1362,7 +1365,8 @@ mediationmod <- function(mediatordat,
                                                   responselevels = responselevels, 
                                                   mod11form = mod11form, 
                                                   mod1form = mod1form, 
-                                                  mod2form = mod2form)
+                                                  mod2form = mod2form, 
+                                                  bootnum = bootnum)
                                 }
     
     
