@@ -572,6 +572,35 @@ featuresampling <- function(betas,
                             featuretype = NULL, 
                             plottitlesuffix = NULL){
   
+  if(is.matrix(betas) == FALSE){
+    
+    rownum <- nrow(betas)
+    colnum <- ncol(betas)
+    
+    betascolnames <- colnames(betas)
+    betasrownames <- row.names(betas)
+    
+    betas <- as.matrix(betas)
+    
+    if(nrow(betas) == rownum & ncol(betas) == colnum){
+      
+      row.names(betas) <- betasrownames
+      colnames(betas) <- betascolnames
+      
+      warning('The parameter `betas` needs a matrix, but the current one is not, \n
+            so it has been converted to a matrix.\n')
+      
+    }else{
+      
+      warning('The parameter `betas` needs a matrix, but the current one is not, \n
+            please convert it to a matrix.\n')
+      
+      return(NULL)
+      
+    }
+    
+  }
+    
   if(topfeatures <= 0){
     topfeatures <- 1000
   }
@@ -703,6 +732,13 @@ featuresampling <- function(betas,
   }
   
   varres <- do.call(rbind, varlist)
+
+  if(is.null(dim(varres))){
+    
+    return(NULL)
+    
+  }
+  
   row.names(varres) <- row.names(betas)
   
   if(anova == TRUE){
