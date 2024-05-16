@@ -318,7 +318,7 @@ singlemediation <- function(j,
                                            nrow(trainingdat), 
                                            replace = TRUE), ]
     
-    if(IPW == TRUE){
+    if(IPW == TRUE & length(confoundings) > 0){
       fac.boot <- sum(trainingdat.boot$invwt)/sum(trainingdat$invwt)
       trainingdat.boot$invwt <- trainingdat.boot$invwt/fac.boot
       
@@ -1093,7 +1093,7 @@ mediationmod <- function(mediatordat,
                                                nrow(trainingdat), 
                                                replace = TRUE), ]
         
-        if(IPW == TRUE){
+        if(IPW == TRUE & length(confoundings) > 0){
           fac.boot <- sum(trainingdat.boot$invwt)/sum(trainingdat$invwt)
           trainingdat.boot$invwt <- trainingdat.boot$invwt/fac.boot
           
