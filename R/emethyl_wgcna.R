@@ -1730,7 +1730,11 @@ prepareenrich <- function(wgcnares,
   }
   
   menames <- setdiff(menames, 'ME0')
-  
+
+  if(mode(wgcnares$tom) == 'list'){
+    return(NULL)
+  }
+    
   weightcutoff <- quantile(wgcnares$tom, 0.99)
   
   modulenodedata <- data.frame(nodeName = character(0), 
