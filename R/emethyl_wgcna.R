@@ -1730,11 +1730,11 @@ prepareenrich <- function(wgcnares,
   }
   
   menames <- setdiff(menames, 'ME0')
-
+  
   if(mode(wgcnares$tom) == 'list'){
     return(NULL)
   }
-    
+  
   weightcutoff <- quantile(wgcnares$tom, 0.99)
   
   modulenodedata <- data.frame(nodeName = character(0), 
@@ -2254,39 +2254,6 @@ orgwgcnagores <- function(gores){
 #'  "mediatorgenedat" contains the biological information of the genes, and if 
 #'  the mediators are DNA methylation probes, the slot "mediatorprobedat" are 
 #'  the information of these probes.
-#'@examples
-#'library(CWGCNA)
-#'
-#'betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
-#'betas <- readRDS(betas)
-#'
-#'pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
-#'pds <- readRDS(pds)
-#'
-#'betasgene <- probestogenes(betadat = betas, 
-#'  group450k850k = c("TSS200", "TSS1500", "1stExon"))
-#'
-#'\dontrun{
-#'cwgcnares <- diffwgcna(dat = betasgene, pddat = pds, 
-#'  responsevarname = "Group", confoundings = c("Gestwk", "Babygender"), 
-#'  featuretype = "gene", 
-#'  
-#'  topvaricancetype = "sd", topvaricance = 5000, 
-#'  
-#'  powers = seq(1, 20, 1), rsqcutline = 0.8, 
-#'  
-#'  mediation = TRUE, 
-#'  
-#'  topn = 1, 
-#'  
-#'  plot = TRUE, titleprefix = "Placenta", labelnum = 5, titlesize = 17, 
-#'  textsize = 16, annotextsize = 5, 
-#'  
-#'  pvalcolname = "adj.P.Val", pvalcutoff = 0.05, isbetaval = TRUE, 
-#'  absxcutoff = 0, diffcutoff = 0, 
-#'  
-#'  threads = 6)
-#'}
 #'@export
 diffwgcna <- function(dat, 
                       pddat, 
@@ -2860,10 +2827,13 @@ diffwgcna <- function(dat,
   
   if(length(mergedmenames) > 1){
     
+    #saveRDS(wgcnares, 'wgcnares.rds')
+    
     enrichdats <- prepareenrich(wgcnares = wgcnares, plot = plot, seed = seed, 
                                 titleprefix = titleprefix)
     
-    if(featuretype == 'gene' & topoenrichment == TRUE){
+    ###modified!!!!
+    if(featuretype == 'gene' & topoenrichment == TRUE & !is.null(enrichdats)){
       
       cat('Start gene function enrichment on WGCNA modules\n')
       
