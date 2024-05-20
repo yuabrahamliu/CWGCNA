@@ -2832,6 +2832,10 @@ diffwgcna <- function(dat,
     enrichdats <- prepareenrich(wgcnares = wgcnares, plot = plot, seed = seed, 
                                 titleprefix = titleprefix)
     
+    if(is.null(enrichdats)){
+      topoenrichment <- FALSE
+    }
+    
     ###modified!!!!
     if(featuretype == 'gene' & topoenrichment == TRUE & !is.null(enrichdats)){
       
