@@ -455,7 +455,7 @@ singlemediation <- function(j,
     
     
     #Natural Direct Effect (NDE)
-    if(confterm != 0){
+    if(any(confterm != 0)){
       confterm.boot <- c.all.boot %*% beta2.boot[B,]
     }else{
       confterm.boot <- 0
@@ -1230,7 +1230,7 @@ mediationmod <- function(mediatordat,
         
         
         #Natural Direct Effect (NDE)
-        if(confterm != 0){
+        if(any(confterm != 0)){
           confterm.boot <- c.all.boot %*% beta2.boot[B,]
         }else{
           confterm.boot <- 0
