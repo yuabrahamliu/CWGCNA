@@ -46,8 +46,7 @@ diffwgcna(
   face = "bold",
   labelnum = NULL,
   annotextsize = 4,
-  savetom = TRUE,
-  signtype = "unsigned"
+  savetom = TRUE
 )
 }
 \arguments{
@@ -305,9 +304,6 @@ plot. Default is 4.}
 
 \item{savetom}{Whether the topological overlap matrix (TOM) of the WGCNA
 analysis need to be returned or not. Default is TRUE.}
-
-\item{signtype}{To construct signed or unsigned WGCNA network, can be set
-as "signed" or "unsigned". Default is "unsigned".}
 
 \item{topvariancetype}{The method need to calculate feature variance. Its
 default is 'sd', meaning standard deviation. Can also be 'mad', meaning
