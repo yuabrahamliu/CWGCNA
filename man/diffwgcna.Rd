@@ -46,7 +46,8 @@ diffwgcna(
   face = "bold",
   labelnum = NULL,
   annotextsize = 4,
-  savetom = TRUE
+  savetom = TRUE,
+  signtype = "unsigned"
 )
 }
 \arguments{
@@ -305,6 +306,9 @@ plot. Default is 4.}
 \item{savetom}{Whether the topological overlap matrix (TOM) of the WGCNA
 analysis need to be returned or not. Default is TRUE.}
 
+\item{signtype}{To construct signed or unsigned WGCNA network, can be set
+as "signed" or "unsigned". Default is "unsigned".}
+
 \item{topvariancetype}{The method need to calculate feature variance. Its
 default is 'sd', meaning standard deviation. Can also be 'mad', meaning
 median absolute deviation.}
@@ -350,38 +354,4 @@ the information of these probes.
 \description{
 Perform WGCNA analysis followed by network-based functional enrichment and
 causal inference (based on mediation analysis) for WGCNA modules.
-}
-\examples{
-library(CWGCNA)
-
-betas <- system.file("extdata", "placentabetas.rds", package = "CWGCNA")
-betas <- readRDS(betas)
-
-pds <- system.file("extdata", "placentapds.rds", package = "CWGCNA")
-pds <- readRDS(pds)
-
-betasgene <- probestogenes(betadat = betas, 
- group450k850k = c("TSS200", "TSS1500", "1stExon"))
-
-\dontrun{
-cwgcnares <- diffwgcna(dat = betasgene, pddat = pds, 
- responsevarname = "Group", confoundings = c("Gestwk", "Babygender"), 
- featuretype = "gene", 
- 
- topvaricancetype = "sd", topvaricance = 5000, 
- 
- powers = seq(1, 20, 1), rsqcutline = 0.8, 
- 
- mediation = TRUE, 
- 
- topn = 1, 
- 
- plot = TRUE, titleprefix = "Placenta", labelnum = 5, titlesize = 17, 
- textsize = 16, annotextsize = 5, 
- 
- pvalcolname = "adj.P.Val", pvalcutoff = 0.05, isbetaval = TRUE, 
- absxcutoff = 0, diffcutoff = 0, 
- 
- threads = 6)
-}
 }
