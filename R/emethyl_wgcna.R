@@ -914,7 +914,8 @@ choosepower <- function(datlist,
                         plot = FALSE, 
                         titlesize, 
                         textsize, 
-                        face){
+                        face, 
+                        signtype = 'unsigned'){
   
   dat <- datlist[[i]]
   
@@ -923,7 +924,8 @@ choosepower <- function(datlist,
   sft <- WGCNA::pickSoftThreshold(data = dat, 
                                   powerVector = powers, 
                                   RsquaredCut = rsqcutline, 
-                                  verbose = 5)
+                                  verbose = 5, 
+                                  networkType = signtype)
   
   if(is.na(sft$powerEstimate)){
     
@@ -1023,7 +1025,8 @@ esftpower <- function(dats,
                       powers = c(1, 20, 1), 
                       rsqcutline = 0.8, 
                       threads = 1, 
-                      mergesft = TRUE){
+                      mergesft = TRUE, 
+                      signtype = 'unsigned'){
   
   choosepower <- function(datlist, 
                           i = 1,
@@ -1032,7 +1035,8 @@ esftpower <- function(dats,
                           plot = FALSE, 
                           titlesize, 
                           textsize, 
-                          face){
+                          face, 
+                          signtype = 'unsigned'){
     
     dat <- datlist[[i]]
     
@@ -1041,7 +1045,8 @@ esftpower <- function(dats,
     sft <- WGCNA::pickSoftThreshold(data = dat, 
                                     powerVector = powers, 
                                     RsquaredCut = rsqcutline, 
-                                    verbose = 5)
+                                    verbose = 5, 
+                                    networkType = signtype)
     
     if(is.na(sft$powerEstimate)){
       
@@ -1105,7 +1110,8 @@ esftpower <- function(dats,
       sftres <- choosepower(datlist = dats, 
                             i = i, 
                             powers = powers, 
-                            rsqcutline = rsqcutline)
+                            rsqcutline = rsqcutline, 
+                            signtype = signtype)
       
       sftreslist[[i]] <- sftres
       
@@ -1131,7 +1137,8 @@ esftpower <- function(dats,
                                      choosepower(datlist = dats, 
                                                  i, 
                                                  powers = powers, 
-                                                 rsqcutline = rsqcutline)
+                                                 rsqcutline = rsqcutline, 
+                                                 signtype = signtype)
                                    }
     
     parallel::stopCluster(cl)
@@ -1193,6 +1200,7 @@ wgcnamain <- function(dat,
   wgcnares <-  WGCNA::blockwiseModules(datExpr = t(dat), 
                                        power = as.vector(unlist(sftpower)),
                                        TOMType = signtype, 
+                                       networkType = signtype, 
                                        minModuleSize = minclustersize,
                                        deepSplit = TRUE, 
                                        reassignThreshold = 0, 
@@ -2493,7 +2501,8 @@ diffwgcna <- function(dat,
                              powers = powers, 
                              rsqcutline = rsqcutline, 
                              threads = threads, 
-                             mergesft = TRUE)
+                             mergesft = TRUE, 
+                             signtype = signtype)
       
       
     }else{
@@ -2504,7 +2513,8 @@ diffwgcna <- function(dat,
                                powers = powers, 
                                rsqcutline = rsqcutline, 
                                threads = threads, 
-                               mergesft = TRUE)
+                               mergesft = TRUE, 
+                               signtype = signtype)
         
       }else{
         
@@ -2563,7 +2573,8 @@ diffwgcna <- function(dat,
                                i = 1, 
                                powers = powers, 
                                rsqcutline = rsqcutline, 
-                               plot = FALSE)
+                               plot = FALSE, 
+                               signtype = signtype)
       
       if(is.null(sftpowers)){
         return(NULL)
