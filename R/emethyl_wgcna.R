@@ -914,8 +914,7 @@ choosepower <- function(datlist,
                         plot = FALSE, 
                         titlesize, 
                         textsize, 
-                        face, 
-                        signtype = 'unsigned'){
+                        face){
   
   dat <- datlist[[i]]
   
@@ -924,8 +923,7 @@ choosepower <- function(datlist,
   sft <- WGCNA::pickSoftThreshold(data = dat, 
                                   powerVector = powers, 
                                   RsquaredCut = rsqcutline, 
-                                  verbose = 5, 
-                                  networkType = signtype)
+                                  verbose = 5)
   
   if(is.na(sft$powerEstimate)){
     
@@ -1025,8 +1023,7 @@ esftpower <- function(dats,
                       powers = c(1, 20, 1), 
                       rsqcutline = 0.8, 
                       threads = 1, 
-                      mergesft = TRUE, 
-                      signtype = 'unsigned'){
+                      mergesft = TRUE){
   
   choosepower <- function(datlist, 
                           i = 1,
@@ -1035,8 +1032,7 @@ esftpower <- function(dats,
                           plot = FALSE, 
                           titlesize, 
                           textsize, 
-                          face, 
-                          signtype = 'unsigned'){
+                          face){
     
     dat <- datlist[[i]]
     
@@ -1045,8 +1041,7 @@ esftpower <- function(dats,
     sft <- WGCNA::pickSoftThreshold(data = dat, 
                                     powerVector = powers, 
                                     RsquaredCut = rsqcutline, 
-                                    verbose = 5, 
-                                    networkType = signtype)
+                                    verbose = 5)
     
     if(is.na(sft$powerEstimate)){
       
@@ -1110,8 +1105,7 @@ esftpower <- function(dats,
       sftres <- choosepower(datlist = dats, 
                             i = i, 
                             powers = powers, 
-                            rsqcutline = rsqcutline, 
-                            signtype = signtype)
+                            rsqcutline = rsqcutline)
       
       sftreslist[[i]] <- sftres
       
@@ -1137,8 +1131,7 @@ esftpower <- function(dats,
                                      choosepower(datlist = dats, 
                                                  i, 
                                                  powers = powers, 
-                                                 rsqcutline = rsqcutline, 
-                                                 signtype = signtype)
+                                                 rsqcutline = rsqcutline)
                                    }
     
     parallel::stopCluster(cl)
@@ -1182,9 +1175,7 @@ wgcnamain <- function(dat,
                       featuretype = 'gene', 
                       plottitleprefix = NULL, 
                       threads = 0, 
-                      seed = 2022, 
-                      
-                      signtype = 'unsigned'){
+                      seed = 2022){
   
   if(!is.numeric(mergecutheight)){
     mergecutheight <- WGCNA::dynamicMergeCut(n = ncol(dats[[1]]), mergeCor = 0.8)
@@ -1199,8 +1190,7 @@ wgcnamain <- function(dat,
   
   wgcnares <-  WGCNA::blockwiseModules(datExpr = t(dat), 
                                        power = as.vector(unlist(sftpower)),
-                                       TOMType = signtype, 
-                                       networkType = signtype, 
+                                       TOMType = "unsigned", 
                                        minModuleSize = minclustersize,
                                        deepSplit = TRUE, 
                                        reassignThreshold = 0, 
@@ -1345,9 +1335,7 @@ ewgcna <- function(dats = balanceddats$dats,
                    featuretype = 'gene', 
                    plottitleprefix = NULL, 
                    threads = 0, 
-                   seed = 2022, 
-                   
-                   signtype = 'unsigned'){
+                   seed = 2022){
   
   if(length(as.vector(unlist(powers))) == 1){
     powers <- rep(powers, length(dats))
@@ -1380,10 +1368,7 @@ ewgcna <- function(dats = balanceddats$dats,
                                             verbose = 5, 
                                             nThreads = threads, 
                                             maxBlockSize = maxblocksize, 
-                                            randomSeed = seed, 
-                                            
-                                            networkType = signtype, 
-                                            TOMType = signtype)
+                                            randomSeed = seed)
   
   #wgcnareslist <- readRDS('wgcnareslist.rds')
   
@@ -2233,8 +2218,6 @@ orgwgcnagores <- function(gores){
 #'  plot. Default is 4.
 #'@param savetom Whether the topological overlap matrix (TOM) of the WGCNA 
 #'  analysis need to be returned or not. Default is TRUE.
-#'@param signtype To construct signed or unsigned WGCNA network, can be set 
-#'  as "signed" or "unsigned". Default is "unsigned".
 #'@return A list with several slots will be returned. One named "wgcnares" 
 #'  records the WGCNA module detection results, including the module labels 
 #'  of the features, the soft-thresholding power used for the module calling, 
@@ -2321,9 +2304,7 @@ diffwgcna <- function(dat,
                       face = 'bold', 
                       labelnum = NULL, 
                       annotextsize = 4, 
-                      savetom = TRUE, 
-                      
-                      signtype = 'unsigned'){
+                      savetom = TRUE){
   
   if(featuretype == 'gene' & topoenrichment == TRUE){
     
@@ -2501,8 +2482,7 @@ diffwgcna <- function(dat,
                              powers = powers, 
                              rsqcutline = rsqcutline, 
                              threads = threads, 
-                             mergesft = TRUE, 
-                             signtype = signtype)
+                             mergesft = TRUE)
       
       
     }else{
@@ -2513,8 +2493,7 @@ diffwgcna <- function(dat,
                                powers = powers, 
                                rsqcutline = rsqcutline, 
                                threads = threads, 
-                               mergesft = TRUE, 
-                               signtype = signtype)
+                               mergesft = TRUE)
         
       }else{
         
@@ -2534,9 +2513,7 @@ diffwgcna <- function(dat,
                        plottitleprefix = titleprefix, 
                        threads = threads, 
                        maxblocksize = maxblocksize, 
-                       seed = seed, 
-                       
-                       signtype = signtype)
+                       seed = seed)
     
   }else{
     
@@ -2554,9 +2531,7 @@ diffwgcna <- function(dat,
                               plottitleprefix = titleprefix, 
                               threads = threads, 
                               maxblocksize = maxblocksize, 
-                              seed = seed, 
-                              
-                              signtype = signtype)
+                              seed = seed)
         
         
       }else{
@@ -2573,8 +2548,7 @@ diffwgcna <- function(dat,
                                i = 1, 
                                powers = powers, 
                                rsqcutline = rsqcutline, 
-                               plot = FALSE, 
-                               signtype = signtype)
+                               plot = FALSE)
       
       if(is.null(sftpowers)){
         return(NULL)
@@ -2590,9 +2564,7 @@ diffwgcna <- function(dat,
                             plottitleprefix = titleprefix, 
                             threads = threads, 
                             maxblocksize = maxblocksize, 
-                            seed = seed, 
-                            
-                            signtype = signtype)
+                            seed = seed)
       
     }
     
