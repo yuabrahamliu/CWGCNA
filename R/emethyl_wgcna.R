@@ -1175,7 +1175,9 @@ wgcnamain <- function(dat,
                       featuretype = 'gene', 
                       plottitleprefix = NULL, 
                       threads = 0, 
-                      seed = 2022){
+                      seed = 2022, 
+                      
+                      signtype = 'unsigned'){
   
   if(!is.numeric(mergecutheight)){
     mergecutheight <- WGCNA::dynamicMergeCut(n = ncol(dats[[1]]), mergeCor = 0.8)
@@ -1190,7 +1192,7 @@ wgcnamain <- function(dat,
   
   wgcnares <-  WGCNA::blockwiseModules(datExpr = t(dat), 
                                        power = as.vector(unlist(sftpower)),
-                                       TOMType = "unsigned", 
+                                       TOMType = signtype, 
                                        minModuleSize = minclustersize,
                                        deepSplit = TRUE, 
                                        reassignThreshold = 0, 
@@ -1335,7 +1337,9 @@ ewgcna <- function(dats = balanceddats$dats,
                    featuretype = 'gene', 
                    plottitleprefix = NULL, 
                    threads = 0, 
-                   seed = 2022){
+                   seed = 2022, 
+                   
+                   signtype = 'unsigned'){
   
   if(length(as.vector(unlist(powers))) == 1){
     powers <- rep(powers, length(dats))
@@ -1368,7 +1372,10 @@ ewgcna <- function(dats = balanceddats$dats,
                                             verbose = 5, 
                                             nThreads = threads, 
                                             maxBlockSize = maxblocksize, 
-                                            randomSeed = seed)
+                                            randomSeed = seed, 
+                                            
+                                            networkType = signtype, 
+                                            TOMType = signtype)
   
   #wgcnareslist <- readRDS('wgcnareslist.rds')
   
@@ -2218,6 +2225,8 @@ orgwgcnagores <- function(gores){
 #'  plot. Default is 4.
 #'@param savetom Whether the topological overlap matrix (TOM) of the WGCNA 
 #'  analysis need to be returned or not. Default is TRUE.
+#'@param signtype To construct signed or unsigned WGCNA network, can be set 
+#'  as "signed" or "unsigned". Default is "unsigned".
 #'@return A list with several slots will be returned. One named "wgcnares" 
 #'  records the WGCNA module detection results, including the module labels 
 #'  of the features, the soft-thresholding power used for the module calling, 
@@ -2304,7 +2313,9 @@ diffwgcna <- function(dat,
                       face = 'bold', 
                       labelnum = NULL, 
                       annotextsize = 4, 
-                      savetom = TRUE){
+                      savetom = TRUE, 
+                      
+                      signtype = 'unsigned'){
   
   if(featuretype == 'gene' & topoenrichment == TRUE){
     
@@ -2513,7 +2524,9 @@ diffwgcna <- function(dat,
                        plottitleprefix = titleprefix, 
                        threads = threads, 
                        maxblocksize = maxblocksize, 
-                       seed = seed)
+                       seed = seed, 
+                       
+                       signtype = signtype)
     
   }else{
     
@@ -2531,7 +2544,9 @@ diffwgcna <- function(dat,
                               plottitleprefix = titleprefix, 
                               threads = threads, 
                               maxblocksize = maxblocksize, 
-                              seed = seed)
+                              seed = seed, 
+                              
+                              signtype = signtype)
         
         
       }else{
@@ -2564,7 +2579,9 @@ diffwgcna <- function(dat,
                             plottitleprefix = titleprefix, 
                             threads = threads, 
                             maxblocksize = maxblocksize, 
-                            seed = seed)
+                            seed = seed, 
+                            
+                            signtype = signtype)
       
     }
     
