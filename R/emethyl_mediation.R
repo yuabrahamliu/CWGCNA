@@ -1427,6 +1427,8 @@ orgreslist <- function(reslist,
                        sourcename, 
                        anno = TRUE, 
                        propna = TRUE){
+
+  reslist <- Filter(Negate(is.null), reslist)
   
   i <- 1
   for(i in 1:length(reslist)){
